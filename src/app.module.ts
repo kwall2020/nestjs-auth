@@ -5,6 +5,8 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TransactionModule } from './transactions/transaction.module';
 
 @Module({
   imports: [
@@ -15,8 +17,10 @@ import { JwtStrategy } from './jwt.strategy';
         expiresIn: '60s',
       },
     }),
+    TypeOrmModule.forRoot(),
+    TransactionModule
   ],
   controllers: [AppController],
-  providers: [AppService, JwtStrategy],
+  providers: [AppService, JwtStrategy]
 })
 export class AppModule {}
