@@ -7,4 +7,10 @@ export class Transaction {
 
   @Column({ name: 'transDescription' })
   description: string;
+
+  @Column({ name: 'transDate' })
+  date: Date;
+
+  @Column()
+  account: number;
 }
