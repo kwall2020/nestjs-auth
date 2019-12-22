@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Transaction } from '../transaction.entity';
+import { Transaction } from '../entities/transaction.entity';
 import { Repository, Between } from 'typeorm';
-import * as moment from 'moment';
 
 @Injectable()
 export class TransactionService {
@@ -11,7 +10,11 @@ export class TransactionService {
     private readonly repository: Repository<Transaction>
   ) {}
 
-  findAll(): Promise<Transaction[]> {
+  findOne(id: number): Promise<Transaction> {
+    return this.repository.findOne(id);
+  }
+
+  find(): Promise<Transaction[]> {
     return this.repository.find();
   }
 

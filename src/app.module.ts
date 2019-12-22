@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TransactionModule } from './transactions/transaction.module';
+import { TransactionModule } from './features/transaction/transaction.module';
 
 @Module({
   imports: [
@@ -14,8 +14,8 @@ import { TransactionModule } from './transactions/transaction.module';
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: {
-        expiresIn: '60s',
-      },
+        expiresIn: '60s'
+      }
     }),
     TypeOrmModule.forRoot(),
     TransactionModule
