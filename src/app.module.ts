@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TransactionModule } from './features/transaction/transaction.module';
+import * as fromEntities from './core/entities';
+import * as fromServices from './core/services';
+import * as fromControllers from './controllers';
 
 @Module({
   imports: [
@@ -18,9 +18,9 @@ import { TransactionModule } from './features/transaction/transaction.module';
       }
     }),
     TypeOrmModule.forRoot(),
-    TransactionModule
+    TypeOrmModule.forFeature([...fromEntities.entities])
   ],
-  controllers: [AppController],
-  providers: [AppService, JwtStrategy]
+  providers: [JwtStrategy, ...fromServices.services],
+  controllers: [...fromControllers.controllers]
 })
 export class AppModule {}
