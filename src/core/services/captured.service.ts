@@ -12,4 +12,12 @@ export class CapturedService extends ServiceBase<Captured> {
   ) {
     super(capturedRepository);
   }
+
+  findByDate(date: Date): Promise<Captured[]> {
+    return this.capturedRepository.find({
+      where: {
+        date
+      }
+    });
+  }
 }
