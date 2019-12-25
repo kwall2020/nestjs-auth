@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Query, Param } from '@nestjs/common';
+import { Controller, Get, UseGuards, Param } from '@nestjs/common';
 import { CategoryService } from '../core/services/category.service';
 import { Category } from '../core/entities/category.entity';
 import { AuthGuard } from '@nestjs/passport';
