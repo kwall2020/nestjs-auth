@@ -2,19 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from '../entities/account.entity';
 import { Repository } from 'typeorm';
+import { ServiceBase } from './service-base.service';
 
 @Injectable()
-export class AccountService {
+export class AccountService extends ServiceBase<Account> {
   constructor(
     @InjectRepository(Account)
-    private readonly repository: Repository<Account>
-  ) {}
-
-  findOne(id: number): Promise<Account> {
-    return this.repository.findOne(id);
-  }
-
-  find(): Promise<Account[]> {
-    return this.repository.find();
+    private readonly accountRepository: Repository<Account>
+  ) {
+    super(accountRepository);
   }
 }

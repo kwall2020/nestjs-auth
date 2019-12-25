@@ -2,20 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Transaction } from '../entities/transaction.entity';
 import { Repository, Between } from 'typeorm';
+import { ServiceBase } from './service-base.service';
 
 @Injectable()
-export class TransactionService {
+export class TransactionService extends ServiceBase<Transaction> {
   constructor(
     @InjectRepository(Transaction)
-    private readonly repository: Repository<Transaction>
-  ) {}
-
-  findOne(id: number): Promise<Transaction> {
-    return this.repository.findOne(id);
-  }
-
-  find(): Promise<Transaction[]> {
-    return this.repository.find();
+    private readonly transactionRepository: Repository<Transaction>
+  ) {
+    super(transactionRepository);
   }
 
   findByDateRange(
@@ -23,7 +18,7 @@ export class TransactionService {
     to: Date,
     account: number
   ): Promise<Transaction[]> {
-    return this.repository.find({
+    return this.transactionRepository.find({
       where: {
         date: Between(from, to),
         account
