@@ -7,4 +7,28 @@ export class Recurrence {
 
   @Column({ name: 'recurrenceDescription' })
   description: string;
+
+  @Column({ name: 'recurrenceCategory' })
+  category: string;
+
+  @Column({ name: 'recurrenceAmount' })
+  amount: number;
+
+  @Column()
+  startDate: Date;
+
+  @Column()
+  endDate: Date;
+
+  @Column()
+  weeklyFrequency: number;
+
+  @Column()
+  weeklyDay: string;
+
+  @Column()
+  monthlyFrequency: number;
+
+  @Column()
+  monthlyDate: number;
 }
