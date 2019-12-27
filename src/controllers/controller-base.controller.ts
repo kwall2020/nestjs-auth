@@ -1,4 +1,4 @@
-import { Get, UseGuards, Param } from '@nestjs/common';
+import { Get, UseGuards, Param, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ServiceBase } from '../core/services/service-base.service';
 

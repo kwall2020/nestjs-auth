@@ -11,6 +11,15 @@ export class Transaction {
   @Column({ name: 'transDate' })
   date: Date;
 
-  @Column()
-  account: number;
+  @Column({ name: 'transCategory' })
+  category: string;
+
+  @Column({ name: 'transAmount' })
+  amount: number;
+
+  @Column({ name: 'cleared' })
+  isCleared: number;
+
+  @Column({ name: 'account' })
+  accountId: number;
 }

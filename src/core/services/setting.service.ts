@@ -16,7 +16,7 @@ export class SettingService extends ServiceBase<Setting> {
   findByName(account: number, name: string): Promise<Setting[]> {
     return this.settingRepository.find({
       where: {
-        account,
+        accountId: account,
         name
       }
     });

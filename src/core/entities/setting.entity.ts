@@ -5,8 +5,8 @@ export class Setting {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  account: number;
+  @Column({ name: 'account' })
+  accountId: number;
 
   @Column({ name: 'settingName' })
   name: string;

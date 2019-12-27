@@ -16,12 +16,12 @@ export class TransactionService extends ServiceBase<Transaction> {
   findByDateRange(
     from: Date,
     to: Date,
-    account: number
+    accountId: number
   ): Promise<Transaction[]> {
     return this.transactionRepository.find({
       where: {
         date: Between(from, to),
-        account
+        accountId
       }
     });
   }
