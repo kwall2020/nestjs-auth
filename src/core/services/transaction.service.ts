@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Transaction } from '../entities/transaction.entity';
-import { Repository, Between } from 'typeorm';
+import { Between, LessThan, Repository } from 'typeorm';
+
+import { Transaction } from '../entities';
+
 import { ServiceBase } from './service-base.service';
 
 @Injectable()
@@ -24,5 +26,38 @@ export class TransactionService extends ServiceBase<Transaction> {
         accountId
       }
     });
+  }
+
+  findByAsOfDate(asOfDate: Date, accountId: number): Promise<Transaction[]> {
+    return this.transactionRepository.find({
+      where: {
+        date: LessThan(asOfDate),
+        accountId
+      }
+    });
+  }
+
+  findByCleared(cleared: number, accountId: number): Promise<Transaction[]> {
+    return this.transactionRepository.find({
+      where: {
+        cleared,
+        accountId
+      }
+    });
+  }
+
+  findByCategory(
+    categoryDescription: string,
+    from: Date,
+    to: Date,
+    accountId: number
+  ): Promise<Transaction[]> {
+    return this.transactionRepository
+      .createQueryBuilder('t')
+      .leftJoinAndSelect('t.category', 'c')
+      .where('c.description = :categoryDescription', { categoryDescription })
+      .andWhere('t.date BETWEEN :from AND :to', { from, to })
+      .andWhere('t.accountId = :accountId', { accountId })
+      .getMany();
   }
 }

@@ -12,7 +12,7 @@ export class CapturedController extends ControllerBase<Captured> {
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  findByQuery(@Query() query): Promise<Captured[]> {
+  findByQuery(@Query() query: any): Promise<Captured[]> {
     if (query.date) {
       return this.capturedService.findByDate(query.date);
     } else {

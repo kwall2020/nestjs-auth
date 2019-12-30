@@ -12,9 +12,9 @@ export class SettingController extends ControllerBase<Setting> {
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  findByQuery(@Query() query): Promise<Setting[]> {
+  findByQuery(@Query() query: any): Promise<Setting[]> {
     if (query.name) {
-      return this.settingService.findByName(+query.account, query.name);
+      return this.settingService.findByName(+query.accountId, query.name);
     } else {
       return this.settingService.find();
     }

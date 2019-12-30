@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn
+} from 'typeorm';
+
+import { Category } from './category.entity';
 
 @Entity()
 export class Transaction {
@@ -12,7 +20,7 @@ export class Transaction {
   date: Date;
 
   @Column({ name: 'transCategory' })
-  category: string;
+  categoryId: string;
 
   @Column({ name: 'transAmount' })
   amount: number;
@@ -22,4 +30,11 @@ export class Transaction {
 
   @Column({ name: 'account' })
   accountId: number;
+
+  @ManyToOne(
+    () => Category,
+    category => category.transactions
+  )
+  @JoinColumn({ name: 'transCategory' })
+  category: Category;
 }
