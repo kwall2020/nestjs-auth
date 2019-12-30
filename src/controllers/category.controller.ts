@@ -16,7 +16,7 @@ export class CategoryController extends ControllerBase<Category> {
   @Get()
   findByQuery(@Query() query: any): Promise<Category[]> {
     if (query.from) {
-      return this.categoryService.findByTransactionDateRange(
+      return this.categoryService.findWithTransactions(
         query.from,
         query.to,
         query.accountId

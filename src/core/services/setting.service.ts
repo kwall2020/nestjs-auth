@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 
 import { Setting } from '../entities';
 
@@ -22,5 +22,13 @@ export class SettingService extends ServiceBase<Setting> {
         name
       }
     });
+  }
+
+  updateByKey(
+    accountId: number,
+    name: string,
+    partialEntity: any
+  ): Promise<UpdateResult> {
+    return this.settingRepository.update({ accountId, name }, partialEntity);
   }
 }

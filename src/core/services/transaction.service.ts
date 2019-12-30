@@ -28,10 +28,10 @@ export class TransactionService extends ServiceBase<Transaction> {
     });
   }
 
-  findByAsOfDate(asOfDate: Date, accountId: number): Promise<Transaction[]> {
+  findByAsOfDate(to: Date, accountId: number): Promise<Transaction[]> {
     return this.transactionRepository.find({
       where: {
-        date: LessThan(asOfDate),
+        date: LessThan(to),
         accountId
       }
     });

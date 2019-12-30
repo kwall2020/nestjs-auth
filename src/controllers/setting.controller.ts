@@ -1,8 +1,19 @@
-import { Controller, UseGuards, Get, Query } from '@nestjs/common';
-import { SettingService } from '../core/services/setting.service';
-import { Setting } from '../core/entities/setting.entity';
-import { ControllerBase } from './controller-base.controller';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Query,
+  UseGuards
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { UpdateResult } from 'typeorm';
+
+import { Setting } from '../core/entities/setting.entity';
+import { SettingService } from '../core/services/setting.service';
+
+import { ControllerBase } from './controller-base.controller';
 
 @Controller('setting')
 export class SettingController extends ControllerBase<Setting> {
@@ -18,5 +29,15 @@ export class SettingController extends ControllerBase<Setting> {
     } else {
       return this.settingService.find();
     }
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Patch(':accountId/:name')
+  patchByKey(
+    @Param('accountId') accountId: string,
+    @Param('name') name: string,
+    @Body() body: any
+  ): Promise<UpdateResult> {
+    return this.settingService.updateByKey(+accountId, name, body);
   }
 }

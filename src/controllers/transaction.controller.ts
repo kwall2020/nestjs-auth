@@ -28,11 +28,8 @@ export class TransactionController extends ControllerBase<Transaction> {
         query.to,
         query.accountId
       );
-    } else if (query.asOfDate) {
-      return this.transactionService.findByAsOfDate(
-        query.asOfDate,
-        query.accountId
-      );
+    } else if (query.to) {
+      return this.transactionService.findByAsOfDate(query.to, query.accountId);
     } else if (query.cleared) {
       return this.transactionService.findByCleared(
         query.cleared,

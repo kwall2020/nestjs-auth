@@ -15,16 +15,27 @@ export class CategoryService extends ServiceBase<Category> {
     super(categoryRepository);
   }
 
-  findByTransactionDateRange(
+  findWithTransactions(
     from: Date,
     to: Date,
     accountId: number
   ): Promise<Category[]> {
     return this.categoryRepository
       .createQueryBuilder('c')
-      .leftJoinAndSelect('c.transactions', 't')
-      .where('t.date BETWEEN :from AND :to', { from, to })
-      .andWhere('t.accountId = :accountId', { accountId })
-      .getMany();
+      .select('c.superCategory', 'superCategory')
+      .addSelect('c.description', 'description')
+      .addSelect('SUM(COALESCE(t.amount, 0))', 'dollars')
+      .leftJoin(
+        'c.transactions',
+        't',
+        't.date BETWEEN :from AND :to AND t.accountId = :accountId',
+        { from, to, accountId }
+      )
+      .groupBy('c.superCategory')
+      .addGroupBy('c.description')
+      .orderBy(
+        'CASE superCategory WHEN "income" THEN 1 WHEN "debt" THEN 2 WHEN "giving" THEN 3 ELSE 4 END'
+      )
+      .getRawMany();
   }
 }

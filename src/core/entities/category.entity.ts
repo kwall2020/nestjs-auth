@@ -10,6 +10,9 @@ export class Category {
   @Column({ name: 'categoryDescription' })
   description: string;
 
+  @Column()
+  superCategory: string;
+
   @OneToMany(
     () => Transaction,
     transaction => transaction.category
