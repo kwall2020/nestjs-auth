@@ -26,7 +26,7 @@ export class Transaction {
   amount: number;
 
   @Column({ name: 'cleared' })
-  isCleared: number;
+  cleared: number;
 
   @Column({ name: 'account' })
   accountId: number;

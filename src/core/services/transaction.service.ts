@@ -54,7 +54,7 @@ export class TransactionService extends ServiceBase<Transaction> {
   ): Promise<Transaction[]> {
     return this.transactionRepository
       .createQueryBuilder('t')
-      .leftJoinAndSelect('t.category', 'c')
+      .leftJoin('t.category', 'c')
       .where('c.description = :categoryDescription', { categoryDescription })
       .andWhere('t.date BETWEEN :from AND :to', { from, to })
       .andWhere('t.accountId = :accountId', { accountId })

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'recurrenceNew' })
 export class Recurrence {
@@ -9,7 +9,7 @@ export class Recurrence {
   description: string;
 
   @Column({ name: 'recurrenceCategory' })
-  category: string;
+  categoryId: string;
 
   @Column({ name: 'recurrenceAmount' })
   amount: number;
